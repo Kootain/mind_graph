@@ -3,6 +3,7 @@ from typing import List
 import networkx as nx
 import matplotlib.pyplot as plt
 from dataclasses import dataclass, field
+from matplotlib.font_manager import _rebuild
 
 
 @dataclass
@@ -18,6 +19,13 @@ class Connection:
 
 
 def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
+    # 重建字体缓存
+    _rebuild()
+
+    # 指定matplotlib的字体
+    plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei']  # 使用文泉驿正黑体
+    plt.rcParams['axes.unicode_minus'] = False  # 确保负号显示正常
+
     g = nx.DiGraph()
     for node in nodes:
         g.add_node(node.text)
@@ -35,8 +43,6 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     nx.draw_networkx_edge_labels(g, pos, font_color='red')
 
     # 保存图像到指定路径
-    # 指定matplotlib的字体
-    plt.rcParams['font.sans-serif'] = ['wqy-zenhei']  # 使用黑体
     plt.savefig(save_path)
     plt.close()  # 关闭图形，避免内存泄漏
 
