@@ -84,5 +84,6 @@ def graph():
                         "label": obj.id,
                         "shape": "dot",
                     }
-
-    return jsonify({'nodes': list(nodes.values()), 'edges': list(edges.values())})
+    resp['nodes'] = list(nodes.values())
+    resp['edges'] = list(edges.values())
+    return jsonify(resp)
