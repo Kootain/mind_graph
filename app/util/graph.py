@@ -3,7 +3,6 @@ from typing import List
 import networkx as nx
 import matplotlib.pyplot as plt
 from dataclasses import dataclass, field
-from matplotlib.font_manager import _rebuild
 
 
 @dataclass
@@ -19,9 +18,6 @@ class Connection:
 
 
 def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
-    # 重建字体缓存
-    _rebuild()
-
     # 指定matplotlib的字体
     plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei']  # 使用文泉驿正黑体
     plt.rcParams['axes.unicode_minus'] = False  # 确保负号显示正常
