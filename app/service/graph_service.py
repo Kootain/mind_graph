@@ -23,13 +23,19 @@ class GraphService(BaseGraphService):
         graph = traversal().withRemote(conn)
 
     def add_edge(self, from_node, to_node):
-        # 建立点, 点类型 gdb_sample_person, 属性 {id, name}
-        create_points_edge = [
-            "g.addV('mind_keyword').property(id, '{}')".format(from_node),
-            "g.addV('mind_keyword').property(id, '{}')".format(to_node),
-            "g.V().has('id', '{}').addE('links').to(g.V().has('id', '{}'))".format(from_node, to_node),
-        ]
-        for g in create_points_edge:
+        # 建立点, 点类型 mind_keyword, 属性 {id, name}
+
+        # 判断顶点是否存在，如果不存在则插入
+        add_edge_commands = [f"g.V ().coalesce (g.V ().has (id, '{from_node}'),g.addV ().property (id, '{from_node}'))",
+                             f"g.V ().coalesce (g.V ().has (id, '{to_node}'),g.addV ().property (id, '{to_node}'))"]
+
+        add_edge_commands.append(
+            f"g.V().has(id, '{from_node}'). as ('a').V().has(id, '{to_node}'). as ('b').coalesce("
+            "__.inE().where(outV(). as ('a')).where(inV(). as ('b')),"
+            "__.addE('links').from('a').to('b').property('weight', 0)"
+            ").as ('e').values('weight'). as ('v').select('e').property('weight', math('v + 1'))"
+        )
+        for g in add_edge_commands:
             print(g)
             call(g)
 
