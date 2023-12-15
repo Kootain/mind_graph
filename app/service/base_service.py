@@ -25,5 +25,5 @@ class BaseGraphService(ABC):
 
     # return a sub graph with a specified node
     @abstractmethod
-    def get_sub_graph(self, center_node):
+    def get_sub_graph(self, center_node, depth):
         raise NotImplementedError()

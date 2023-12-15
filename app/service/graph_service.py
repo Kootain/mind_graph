@@ -46,8 +46,10 @@ class GraphService(BaseGraphService):
     def remove_edge(self, from_node, to_node):
         raise NotImplementedError()
 
-    def get_sub_graph(self, center_node):
-        raise NotImplementedError()
+    def get_sub_graph(self, center_node, depth=3):
+        sub_graph_command = f"g.V ().has (id, '{center_node}').repeat (bothE ().otherV ()).times ({depth}).emit ().dedup ().tree ()"
+        ret_list = call(sub_graph_command)
+        return ret_list
 
     def get_node(self, node):
         get_node_command = f"g.V().has(id,'{node}')"
