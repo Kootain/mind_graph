@@ -47,7 +47,7 @@ class GraphService(BaseGraphService):
         raise NotImplementedError()
 
     def get_sub_graph(self, center_node, depth=3):
-        sub_graph_command = f"g.V ().has (id, '{center_node}').repeat (bothE ().otherV ()).times ({depth}).emit ().dedup ().tree ()"
+        sub_graph_command = f"g.V ().has (id, '{center_node}').repeat (bothE ().otherV ()).times ({depth}).emit ().dedup ().path ()"
         ret_list = call(sub_graph_command)
         return ret_list
 
