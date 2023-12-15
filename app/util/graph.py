@@ -25,6 +25,9 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
         g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
 
     pos = nx.spring_layout(g)  # 为每个节点分配位置
+    plt.rcParams['font.sans-serif'] = ['Noto Sans SC']  # 或你的系统中可用的其他中文支持字体
+    plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
+
     nx.draw(g, pos, with_labels=True, node_color='lightblue', node_size=1500, arrowstyle='-|>', arrowsize=20)
 
     # 添加节点标签
@@ -40,9 +43,9 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
 
 if __name__ == '__main__':
     # 测试数据
-    nodes = [Keyword("Python"), Keyword("Java"), Keyword("C++")]
+    nodes = [Keyword("Python学习"), Keyword("Java"), Keyword("C++")]
     edges = [
-        Connection("Python", "Java", 0.5),
+        Connection("Python学习", "Java", 0.5),
         Connection("Java", "C++", 0.3),
         Connection("Python", "C++", 0.7)
     ]
