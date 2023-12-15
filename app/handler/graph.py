@@ -12,23 +12,6 @@ graph_service = GraphService()
 def clamp(value, min_value, max_value):
     return max(min_value, min(value, max_value))
 
-
-@dataclass
-class Node:
-    color: str
-    id: str
-    label: str
-    shape: str
-
-
-@dataclass
-class Edge:
-    arrows: str
-    from_node: str  # 'from' is a reserved keyword in Python, so we use 'from_node' instead
-    to: str
-    value: float
-
-
 @api.get('/graph')
 def graph():
     keyword = request.args.get('keyword')
@@ -68,7 +51,6 @@ def graph():
                     continue
 
                 key = f"{from_node.id}#{to_node.id}"
-                print(f"Added edge: {edges[key]}")  # 打印添加的边
                 if key not in edges:
                     edges[key] = {
                         "arrows": "to",
@@ -76,7 +58,6 @@ def graph():
                         "to": to_node.id,
                         "value": 0.5
                     }
-                    print(f"!!!Added edge: {edges[key]}")  # 打印添加的边
 
             if isinstance(obj, Vertex):
                 if obj.id not in nodes:
