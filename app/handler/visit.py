@@ -1,6 +1,7 @@
 # coding=utf-8
 from flask import jsonify, request
 from ..api import api
+import random
 
 keywords = ['python', 'mysql']
 
@@ -14,8 +15,8 @@ def visit():
         keywords.append(current_keyword)
     if next_keywords:
         keywords.extend(next_keywords)
-    print(current_keyword, next_keywords)
-    return jsonify({'suc': True})
+    random.shuffle(next_keywords)
+    return jsonify({'suc': True, 'sorted_keywords': next_keywords})
 
 
 @api.get('/keyword')
