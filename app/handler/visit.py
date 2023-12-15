@@ -52,5 +52,5 @@ def keyword():
         resp["reason"] = "ret is empty"
         return resp
     resp['data'] = ret
-    resp['keyword'] = ret['nodes']
+    #resp['keyword'] = ret['nodes']
     return jsonify(resp)
