@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from ..api import api
 from ..service.graph_service import GraphService
+from gremlin_python.structure.graph  import Vertex
 
 graph_service = GraphService()
 
@@ -20,9 +21,6 @@ def keyword():
         resp["reason"] = "ret is empty"
         return resp
 
-    resp['element'] = {
-        "id": ret[0]['id'],
-        "label": ret[0]['label'],
-        "properties": ret[0]['properties']
-    }
+    resp['element'] = ret[0].__format__()
+    
     return jsonify(resp)
