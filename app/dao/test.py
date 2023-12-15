@@ -19,17 +19,17 @@ if __name__ == '__main__':
 
     # 建立点, 点类型 gdb_sample_person, 属性 {id, name}
     create_points = [
-        "g.addV('gdb_sample_person').property(id, 'gdb_sample_alice').property('name', 'Alice').next()"
-        "g.addV('gdb_sample_person').property(id, 'gdb_sample_bob').property('name', 'Bob').next()"
-        "g.addV('gdb_sample_person').property(id, 'gdb_sample_carol').property('name', 'Carol').next()"
+        "g.addV('gdb_sample_person').property(id, 'gdb_sample_alice').property('name', 'Alice')"
+        "g.addV('gdb_sample_person').property(id, 'gdb_sample_bob').property('name', 'Bob')"
+        "g.addV('gdb_sample_person').property(id, 'gdb_sample_carol').property('name', 'Carol')"
     ]
     for g in create_points:
         call(g)
 
     # 建立边, 边类型 gdb_sample_knows, 属性 {weight}
     create_edge = [
-        "g.addE('gdb_sample_knows').from(V('gdb_sample_alice')).to(V('gdb_sample_bob')).property('weight', 0.5f).next()",
-        "g.addE('gdb_sample_knows').from(V('gdb_sample_bob')).to(V('gdb_sample_carol')).property('weight', 0.5f).next()"
+        "g.addE('gdb_sample_knows').from(V('gdb_sample_alice')).to(V('gdb_sample_bob')).property('weight', 0.5f)",
+        "g.addE('gdb_sample_knows').from(V('gdb_sample_bob')).to(V('gdb_sample_carol')).property('weight', 0.5f)"
     ]
     for g in create_edge:
         call(g)
