@@ -3,6 +3,7 @@ from typing import List
 import networkx as nx
 import matplotlib.pyplot as plt
 from dataclasses import dataclass, field
+from matplotlib.font_manager import FontProperties
 
 
 @dataclass
@@ -19,8 +20,12 @@ class Connection:
 
 def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     # 指定matplotlib的字体
-    plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei']  # 使用文泉驿正黑体
-    plt.rcParams['axes.unicode_minus'] = False  # 确保负号显示正常
+    #plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei']  # 使用文泉驿正黑体
+    #plt.rcParams['axes.unicode_minus'] = False  # 确保负号显示正常
+
+    # 设置字体
+    font_path = "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc"  # 字体文件的路径
+    # my_font = FontProperties(fname=font_path)
 
     g = nx.DiGraph()
     for node in nodes:
@@ -33,10 +38,10 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     nx.draw(g, pos, with_labels=True, node_color='lightblue', node_size=1500, arrowstyle='-|>', arrowsize=20)
 
     # 添加节点标签
-    nx.draw_networkx_labels(g, pos, font_size=12)
+    nx.draw_networkx_labels(g, pos, font_family=font_path)
 
     # 添加边标签
-    nx.draw_networkx_edge_labels(g, pos, font_color='red')
+    nx.draw_networkx_edge_labels(g, pos, font_color='red', font_family=font_path)
 
     # 保存图像到指定路径
     plt.savefig(save_path)
