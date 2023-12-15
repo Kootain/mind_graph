@@ -16,7 +16,7 @@ graph_service = GraphService()
 def xmind():
     keyword = request.args.get('keyword')
     depth = request.args.get('depth')
-    depth = clamp(depth, 1, 5)
+    depth = clamp(depth, 3, 5)
     resp = {
         "input": keyword,
         "depth": depth,
