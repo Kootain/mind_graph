@@ -3,6 +3,8 @@ from ..api import api
 from ..service.graph_service import GraphService
 
 graph_service = GraphService()
+
+
 @api.get('/keyword')
 def keyword():
     keyword = request.args.get('keyword')
@@ -17,6 +19,10 @@ def keyword():
         resp['suc'] = False
         resp["reason"] = "ret is empty"
         return resp
-    print(ret)
-    #resp['keyword'] = ret[0]['nodes']
+
+    resp['element'] = {
+        "id": ret[0]['id'],
+        "label": ret[0]['label'],
+        "properties": ret[0]['properties']
+    }
     return jsonify(resp)
