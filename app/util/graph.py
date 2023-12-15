@@ -3,7 +3,7 @@ from typing import List
 import networkx as nx
 import matplotlib.pyplot as plt
 from dataclasses import dataclass, field
-
+from pyvis.network import Network
 
 @dataclass
 class Keyword:
@@ -17,7 +17,7 @@ class Connection:
     weight: float = field(default=0.0)
 
 
-def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
+def nx_draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     # 指定matplotlib的字体
     plt.rcParams['font.sans-serif'] = ['Noto Sans SC']  # 或你的系统中可用的其他中文支持字体
     plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
@@ -43,6 +43,16 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     plt.savefig(save_path)
     plt.close()  # 关闭图形，避免内存泄漏
 
+def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
+    # 创建一个网络图对象
+    net = Network()
+    for node in nodes:
+        net.add_node(node.text, node.text)
+    for edge in edges:
+        #g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
+        net.add_edge(edge.from_keyword, edge.to_keyword)
+
+    net.show(str, notebook=False)
 
 if __name__ == '__main__':
     # 测试数据

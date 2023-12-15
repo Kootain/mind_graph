@@ -54,12 +54,20 @@ def xmind():
                     nodes[obj.id] = Keyword(obj.id)
 
     filename = str(uuid.uuid1())
-    img_path = f'app/static/img/{filename}.png'
+    html_path = f'app/static/img/{filename}.html'
 
-    draw(list(nodes.values()), list(edges.values()), img_path)
+    draw(list(nodes.values()), list(edges.values()), html_path)
 
-    url = urljoin(request.url_root, f'/static/img/{filename}.png')
+    url = urljoin(request.url_root, f'/static/img/{filename}.html')
     resp["url"] = url
+
+    # filename = str(uuid.uuid1())
+    # img_path = f'app/static/img/{filename}.png'
+
+    # draw(list(nodes.values()), list(edges.values()), img_path)
+
+    # url = urljoin(request.url_root, f'/static/img/{filename}.png')
+    # resp["url"] = url
 
     return jsonify(resp)
 
