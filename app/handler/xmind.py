@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 from .visit import keywords
 from ..service.graph_service import GraphService
 from ..util.graph import Keyword, Connection, draw
+from gremlin_python.structure.graph import Edge, Vertex
 
 graph_service = GraphService()
 
@@ -33,24 +34,22 @@ def xmind():
     nodes = {}
     edges = {}
     for r in ret:
-        from_node = r.objects[0]
-        for sub in [r.objects[i:i + 2] for i in range(1, len(r.objects), 2)]:
-            # print(sub)
-            (edge, to_node) = sub
-            if from_node.id not in nodes:
-                nodes[from_node.id] = Keyword(from_node.id)
-                print(f"from node id {from_node.id}")
-            if to_node.id not in nodes:
-                nodes[to_node.id] = Keyword(to_node.id)
-                print(f"to node id {to_node.id}")
+        for obj in r.objects:
+            if isinstance(obj, Edge):
+                from_node = obj.outV
+                to_node = obj.inV
 
-            if from_node.id == to_node.id:
-                continue
+                if from_node.id == to_node.id:
+                    continue
 
-            key = f"{from_node.id}#{to_node.id}"
-            if key not in edges:
-                edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
-                print(f"edge id {key}")
+                key = f"{from_node.id}#{to_node.id}"
+                if key not in edges:
+                    edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
+                    print(f"edge id {key}")
+
+            if isinstance(obj, Vertex):
+                if obj.id not in nodes:
+                    nodes[obj.id] = Keyword(obj.id)
 
     filename = str(uuid.uuid1())
     img_path = f'app/static/img/{filename}.png'
