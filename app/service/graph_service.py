@@ -25,11 +25,12 @@ class GraphService(BaseGraphService):
     def add_edge(self, from_node, to_node):
         # 建立点, 点类型 gdb_sample_person, 属性 {id, name}
         create_points_edge = [
-            "g.addV('mind_keyword').property(id, {})".format(from_node),
-            "g.addV('mind_keyword').property(id, {})".format(to_node),
-            "g.V().has('id', {}).addE('links').to(g.V().has('id', {}))".format(from_node, to_node),
+            "g.addV('mind_keyword').property(id, '{}')".format(from_node),
+            "g.addV('mind_keyword').property(id, '{}')".format(to_node),
+            "g.V().has('id', '{}').addE('links').to(g.V().has('id', '{}'))".format(from_node, to_node),
         ]
         for g in create_points_edge:
+            print(g)
             call(g)
 
     def remove_edge(self, from_node, to_node):
