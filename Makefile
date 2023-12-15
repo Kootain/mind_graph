@@ -1,7 +1,7 @@
 REMOTE_HOST=root@47.236.140.48  # 替换为实际的远程服务器用户名和地址
 REMOTE_DEV_DIR=/root/coze_dev
 BRANCH_NAME=ben_mind
-DEV_PORT=443
+DEV_PORT=446
 
 init:
 	@if git rev-parse --verify $(BRANCH_NAME); then \
@@ -26,7 +26,7 @@ dev:
 run:
 	mkdir -p app/static/img
 	pip install -r requirements.txt
-	PORT=$(DEV_PORT) /usr/bin/python3 run.py
+	PORT=$(DEV_PORT) python3 run.py
 
 push:
 	@if [ -n "$$(git status --porcelain)" ]; then \
