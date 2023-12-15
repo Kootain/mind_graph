@@ -1,7 +1,7 @@
 REMOTE_HOST=root@47.236.140.48  # 替换为实际的远程服务器用户名和地址
 REMOTE_DEV_DIR=/root/coze_dev
-BRANCH_NAME=ben_mind
-DEV_PORT=446
+BRANCH_NAME=bench
+DEV_PORT=666
 
 init:
 	@if git rev-parse --verify $(BRANCH_NAME); then \
