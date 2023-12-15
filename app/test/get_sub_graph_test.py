@@ -1,5 +1,6 @@
 import unittest
 from app.service.graph_service import GraphService
+from gremlin_python.structure.graph import Path
 class TestGetSubGraph(unittest.TestCase):
     def test_get_sub_graph(self):
         keyword = 'Language'

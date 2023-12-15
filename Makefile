@@ -60,3 +60,6 @@ log:
 
 status:
 	ssh $(REMOTE_HOST) 'sudo systemctl status coze@$(DEV_PORT).service'
+
+test:
+	ssh $(REMOTE_HOST) 'cd $(REMOTE_DEV_DIR) && python3 -m unittest app/test/get_sub_graph_test.py'

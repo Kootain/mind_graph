@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 from urllib.parse import urljoin
 from .visit import keywords
 from ..service.graph_service import GraphService
+from ..util.graph import Keyword, Connection, draw
 
 graph_service = GraphService()
 
@@ -29,7 +30,26 @@ def xmind():
         resp["reason"] = "keyword does not exist"
         return resp
 
-    # parser for sub-graph
+    nodes = {}
+    edges = {}
+    for r in ret:
+        (from_node, edge, to_node) = r.objects
+        if from_node.id not in nodes:
+            nodes[from_node.id] = Keyword(from_node.id)
+        if to_node.id not in nodes:
+            nodes[to_node.id] = Keyword(to_node.id)
+
+        key = f"{from_node}#{to_node}"
+        if key not in edges:
+            edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
+
+    filename = str(uuid.uuid1())
+    img_path = f'app/static/img/{filename}.png'
+
+    draw(list(nodes.values()), list(edges.values()), img_path)
+
+    url = urljoin(request.url_root, f'/static/img/{filename}.png')
+    resp["url"] = url
 
     return jsonify(resp)
 
