@@ -1,4 +1,6 @@
 from gremlin_python.driver import client
+from gremlin_python.process.anonymous_traversal import traversal
+from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
 import os
 
 username = os.getenv('gdb_username')
@@ -7,6 +9,7 @@ print(username, password)
 host = 'gds-t4n023gomp5sfjyj81850pub.graphdb.singapore.rds.aliyuncs.com'
 port = '3734'
 client = client.Client(f'ws://{host}:{port}/gremlin', 'g', username=username, password=password)
+conn = DriverRemoteConnection(f'ws://{host}:{port}/gremlin', 'g', username=username, password=password)
 
 
 def call(q):
@@ -16,6 +19,8 @@ def call(q):
 
 
 if __name__ == '__main__':
+
+    graph = traversal().withRemote(conn)
 
     # 建立点, 点类型 gdb_sample_person, 属性 {id, name}
     create_points = [
