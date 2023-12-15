@@ -15,8 +15,11 @@ graph_service = GraphService()
 @api.get('/xmind')
 def xmind():
     keyword = request.args.get('keyword')
+    depth = request.args.get('depth')
+    depth = clamp(depth, 1, 5)
     resp = {
         "input": keyword,
+        "depth": depth,
         'suc': True,
         "reason": ""
     }
@@ -25,7 +28,7 @@ def xmind():
         resp["reason"] = "keyword is empty"
         return jsonify(resp)
 
-    ret = graph_service.get_sub_graph(keyword)
+    ret = graph_service.get_sub_graph(keyword, depth)
     if not ret:
         resp['suc'] = False
         resp["reason"] = "keyword does not exist"
@@ -60,6 +63,8 @@ def xmind():
 
     return jsonify(resp)
 
+def clamp(value, min_value, max_value):
+    return max(min_value, min(value, max_value))
 
 def test_mind():
     # 制图

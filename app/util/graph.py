@@ -30,7 +30,7 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
         g.add_edge(edge.from_keyword, edge.to_keyword)
 
     pos = nx.kamada_kawai_layout(g)  # 为每个节点分配位置
-    nx.draw(g, pos, with_labels=True, node_size=500, node_color="skyblue", font_size=10)
+    nx.draw(g, pos, with_labels=True, node_size=800, node_color="skyblue", font_size=12)
     # nx.draw(g, pos, with_labels=True, node_color='lightblue', node_size=500, arrowstyle='-|>', arrowsize=10)
 
     # 添加节点标签
