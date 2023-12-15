@@ -53,10 +53,8 @@ def graph():
                 key = f"{from_node.id}#{to_node.id}"
                 if key not in edges:
                     edges[key] = {
-                        "arrows": "to",
                         "from": from_node.id,
                         "to": to_node.id,
-                        "value": 0.5
                     }
 
             if isinstance(obj, Vertex):
