@@ -1,7 +1,7 @@
 REMOTE_HOST=root@47.236.140.48  # 替换为实际的远程服务器用户名和地址
 REMOTE_DEV_DIR=/root/coze_dev
-BRANCH_NAME=kootain
-DEV_PORT=5000
+BRANCH_NAME=main
+DEV_PORT=443
 
 init:
 	@if git rev-parse --verify $(BRANCH_NAME); then \
