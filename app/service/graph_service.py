@@ -16,7 +16,7 @@ def call(q):
     callback = client.submit(q).all().result()
     for result in callback:
         print(result)
-
+    return callback
 
 class GraphService(BaseGraphService):
     def __init__(self):
@@ -50,4 +50,8 @@ class GraphService(BaseGraphService):
         raise NotImplementedError()
 
     def get_node(self, node):
-        raise NotImplementedError()
+        get_node_command = f"g.V().has(id,'{node}')"
+        ret_list = call(get_node_command)
+        return ret_list
+
+

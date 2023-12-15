@@ -40,6 +40,17 @@ def visit():
 @api.get('/keyword')
 def keyword():
     keyword = request.args.get('keyword')
+    resp = {
+        "input": keyword,
+        'suc': True,
+        "reason": ""
+    }
     # retrieve the specified keyword from graph
-    graph_service.get_node(keyword)
-    return jsonify(keywords)
+    ret = graph_service.get_node(keyword)
+    if not ret:
+        resp['suc'] = False
+        resp["reason"] = "ret is empty"
+        return resp
+    resp['data'] = ret
+    resp['keyword'] = ret['nodes']
+    return jsonify(resp)
