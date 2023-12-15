@@ -33,15 +33,18 @@ def xmind():
     nodes = {}
     edges = {}
     for r in ret:
-        (from_node, edge, to_node) = r.objects
-        if from_node.id not in nodes:
-            nodes[from_node.id] = Keyword(from_node.id)
-        if to_node.id not in nodes:
-            nodes[to_node.id] = Keyword(to_node.id)
+        from_node = r.objects[0]
+        for sub in [r.objects[i:i + 2] for i in range(1, len(r.objects), 2)]:
+            # print(sub)
+            (edge, to_node) = sub
+            if from_node.id not in nodes:
+                nodes[from_node.id] = Keyword(from_node.id)
+            if to_node.id not in nodes:
+                nodes[to_node.id] = Keyword(to_node.id)
 
-        key = f"{from_node}#{to_node}"
-        if key not in edges:
-            edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
+            key = f"{from_node}#{to_node}"
+            if key not in edges:
+                edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
 
     filename = str(uuid.uuid1())
     img_path = f'app/static/img/{filename}.png'
