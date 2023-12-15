@@ -15,6 +15,7 @@ def visit():
         keywords.append(current_keyword)
     if next_keywords:
         keywords.extend(next_keywords)
+    print(current_keyword, next_keywords)
     random.shuffle(next_keywords)
     return jsonify({'suc': True, 'sorted_keywords': next_keywords})
 
