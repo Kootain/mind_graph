@@ -75,6 +75,7 @@ def graph():
                         "to": to_node.id,
                         "value": 0.5
                     }
+                    print(f"Added edge: {edges[key]}")  # 打印添加的边
 
             if isinstance(obj, Vertex):
                 if obj.id not in nodes:
