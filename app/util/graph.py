@@ -22,7 +22,8 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     for node in nodes:
         g.add_node(node.text)
     for edge in edges:
-        g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
+        #g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
+        g.add_edge(edge.from_keyword, edge.to_keyword)
 
     pos = nx.spring_layout(g)  # 为每个节点分配位置
     nx.draw(g, pos, with_labels=True, node_color='lightblue', node_size=1500, arrowstyle='-|>', arrowsize=20)
@@ -34,6 +35,8 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
     nx.draw_networkx_edge_labels(g, pos, font_color='red')
 
     # 保存图像到指定路径
+    # 指定matplotlib的字体
+    plt.rcParams['font.sans-serif'] = ['wqy-zenhei']  # 使用黑体
     plt.savefig(save_path)
     plt.close()  # 关闭图形，避免内存泄漏
 
