@@ -61,14 +61,6 @@ def xmind():
     url = urljoin(request.url_root, f'/static/img/{filename}.html')
     resp["url"] = url
 
-    # filename = str(uuid.uuid1())
-    # img_path = f'app/static/img/{filename}.png'
-
-    # draw(list(nodes.values()), list(edges.values()), img_path)
-
-    # url = urljoin(request.url_root, f'/static/img/{filename}.png')
-    # resp["url"] = url
-
     return jsonify(resp)
 
 def clamp(value, min_value, max_value):

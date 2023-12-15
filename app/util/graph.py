@@ -22,6 +22,30 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
         #g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
         net.add_edge(edge.from_keyword, edge.to_keyword)
 
+    # 配置pyvis参数
+    # 设置物理模拟的参数
+    net.toggle_physics(True)
+    net.set_options("""
+    var options = {
+      "physics": {
+        "forceAtlas2Based": {
+          "gravitationalConstant": -50,
+          "centralGravity": 0.005,
+          "springLength": 100,
+          "springConstant": 0.08
+        },
+        "maxVelocity": 50,
+        "minVelocity": 0.1,
+        "solver": "forceAtlas2Based",
+        "timestep": 0.35,
+        "stabilization": {
+          "enabled": true,
+          "iterations": 1000
+        }
+      }
+    }
+    """)
+
     net.write_html(save_path, notebook=False)
 
 if __name__ == '__main__':
