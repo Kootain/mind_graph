@@ -44,8 +44,7 @@ def xmind():
 
                 key = f"{from_node.id}#{to_node.id}"
                 if key not in edges:
-                    edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
-                    print(f"edge id {key}")
+                    edges[key] = Connection(from_keyword=from_node.id, to_keyword=to_node.id)
 
             if isinstance(obj, Vertex):
                 if obj.id not in nodes:
