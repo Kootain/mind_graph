@@ -39,12 +39,18 @@ def xmind():
             (edge, to_node) = sub
             if from_node.id not in nodes:
                 nodes[from_node.id] = Keyword(from_node.id)
+                print(f"from node id {from_node.id}")
             if to_node.id not in nodes:
                 nodes[to_node.id] = Keyword(to_node.id)
+                print(f"to node id {to_node.id}")
 
-            key = f"{from_node}#{to_node}"
+            if from_node.id == to_node.id:
+                continue
+                
+            key = f"{from_node.id}#{to_node.id}"
             if key not in edges:
                 edges[key] = Connection(from_keyword=from_node, to_keyword=to_node)
+                print(f"edge id {key}")
 
     filename = str(uuid.uuid1())
     img_path = f'app/static/img/{filename}.png'
