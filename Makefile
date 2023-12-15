@@ -20,9 +20,11 @@ clean:
 	ssh $(REMOTE_HOST) 'sudo systemctl stop coze@$(DEV_PORT) && sudo systemctl disable coze@$(DEV_PORT) && sudo systemctl daemon-reload && rm -rf $(REMOTE_DEV_DIR)/$(DEV_PORT)'
 
 dev:
+	mkdir -p app/static/img
 	python run.py
 
 run:
+	mkdir -p app/static/img
 	pip install -r requirements.txt
 	PORT=$(DEV_PORT) /usr/bin/python3 run.py
 
