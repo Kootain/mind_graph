@@ -14,9 +14,11 @@ def visit():
     data = request.json
     current_keyword = data.get('current_keyword', '')
     next_keywords = data.get('next_keywords', [])
+    random.shuffle(next_keywords)
+
     resp = {
         "current_keyword": current_keyword,
-        "next_keywords": random.shuffle(next_keywords),
+        "next_keywords": next_keywords,
         'suc': True,
         "reason": ""
     }
