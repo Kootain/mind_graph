@@ -52,8 +52,7 @@ def draw(nodes: List[Keyword], edges: List[Connection], save_path: str):
         #g.add_edge(edge.from_keyword, edge.to_keyword, weight=edge.weight)
         net.add_edge(edge.from_keyword, edge.to_keyword)
 
-    print(f"!!!!!{str}")
-    net.write_html(str, notebook=False)
+    net.write_html(save_path, notebook=False)
 
 if __name__ == '__main__':
     # 测试数据
