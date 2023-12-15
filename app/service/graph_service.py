@@ -54,4 +54,9 @@ class GraphService(BaseGraphService):
         ret_list = call(get_node_command)
         return ret_list
 
+    def get_edge(self, from_node, to_node):
+        get_edge_command = f"g.V ().has (id, '{from_node}').outE ().as ('l').inV ().has (id, '{to_node}').select ('l')"
+        ret_list = call(get_edge_command)
+        return ret_list
+
 

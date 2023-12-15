@@ -1,10 +1,8 @@
 from flask import jsonify, request
 from ..api import api
 from ..service.graph_service import GraphService
-from gremlin_python.structure.graph import Vertex
 
 graph_service = GraphService()
-
 
 @api.get('/keyword')
 def keyword():
@@ -18,7 +16,7 @@ def keyword():
     ret = graph_service.get_node(keyword)
     if not ret:
         resp['suc'] = False
-        resp["reason"] = "ret is empty"
+        resp["reason"] = "keyword does not exist"
         return resp
 
     resp['element'] = {

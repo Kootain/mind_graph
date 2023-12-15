@@ -18,6 +18,11 @@ class BaseGraphService(ABC):
     def get_node(self, node):
         raise NotImplementedError()
 
+    # return a specified edge from graph if exists
+    @abstractmethod
+    def get_edge(self, from_node, to_node):
+        raise NotImplementedError()
+
     # return a sub graph with a specified node
     @abstractmethod
     def get_sub_graph(self, center_node):
