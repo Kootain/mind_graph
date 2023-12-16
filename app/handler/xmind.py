@@ -56,9 +56,9 @@ def xmind():
     filename = str(uuid.uuid1())
     html_path = f'app/static/img/{filename}.html'
 
-    draw(list(nodes.values()), list(edges.values()), html_path)
-
-    url = urljoin(request.url_root, f'/static/img/{filename}.html')
+    # draw(list(nodes.values()), list(edges.values()), html_path)
+    # url = urljoin(request.url_root, f'/static/img/{filename}.html')
+    url = urljoin(request.root_url, f'/static/graph.html?keyword={keyword}')
     resp["url"] = url
 
     return jsonify(resp)
